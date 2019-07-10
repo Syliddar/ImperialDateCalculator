@@ -5,7 +5,11 @@ namespace ImperialDateConversion
 {
     public static class ImperialDate
     {
-        static double makrConstant = 0.11407955;
+        /*
+         * Props to senior nerd Makr for the Makr Constant.
+         * https://www.dakkadakka.com/dakkaforum/posts/list/265553.page         
+         */
+        static double makrConstant = 0.11407955263862231501532129004257;
         public static string ToImperialDate(this DateTime date, CheckNumber checkNumber = 0)
         {
             var yearFraction = GetYearFraction(date);
