@@ -10,10 +10,9 @@ namespace ImperialDateConversion
         {
             var yearFraction = GetYearFraction(date);
             var yearInMillenium = GetYear(date);
-            var milleniumNumber = GetMillenium(date).ToString().PadLeft(2, '0');
+            var milleniumNumber = GetMillenium(date);
             return $"{(int)checkNumber}{yearFraction}{yearInMillenium}.M{milleniumNumber}";
         }
-
         private static string GetYearFraction(DateTime sourceDate)
         {
             /* 
@@ -25,18 +24,16 @@ namespace ImperialDateConversion
             var imperialFraction = determinedHour * makrConstant;
             return Math.Round(imperialFraction, 0).ToString();
         }
-
         private static string GetYear(DateTime sourceDate)
         {
             //The Millenium portion of the year is tracked separately.
             var year = sourceDate.Year.ToString();
             return year.Substring(1);
         }
-
-        private static int GetMillenium(DateTime sourceDate)
+        private static string GetMillenium(DateTime sourceDate)
         {
             var year = sourceDate.Year / 1000;
-            return year + 1;
+            return (year + 1).ToString().PadLeft(2, '0');
         }
     }
 
