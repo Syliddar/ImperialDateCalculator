@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Globalization;
 
 namespace ImperialDateConversion
 {
     public static class ImperialDate
     {
         /*
-         * Props to senior nerd Makr for the Makr Constant.
+         * Props to Makr for the Makr Constant.
          * https://www.dakkadakka.com/dakkaforum/posts/list/265553.page         
          */
         static double makrConstant = 0.11407955263862231501532129004257;
         public static string ToImperialDate(this DateTime date, CheckNumber checkNumber = 0)
         {
-            var yearFraction = GetYearFraction(date);
-            var yearInMillenium = GetYear(date);
-            var milleniumNumber = GetMillenium(date);
+            string yearFraction = GetYearFraction(date);
+            string yearInMillenium = date.Year.ToString().Substring(1);
+            string milleniumNumber = GetMillenium(date);
             return $"{(int)checkNumber}{yearFraction}{yearInMillenium}.M{milleniumNumber}";
         }
         private static string GetYearFraction(DateTime sourceDate)
@@ -23,20 +22,14 @@ namespace ImperialDateConversion
              * The Imperium of Man in the Warhammer 40k Universe does not use time/day/month information as we do today. 
              * The "Imperial Date" of an event is determined by splitting a standard earth year into 1,000 equal parts.
              */
-            var julianDate = sourceDate.DayOfYear;
-            var determinedHour = (julianDate * 24) + sourceDate.Hour;
-            var imperialFraction = determinedHour * makrConstant;
+            int julianDate = sourceDate.DayOfYear;
+            int determinedHour = (julianDate * 24) + sourceDate.Hour;
+            double imperialFraction = determinedHour * makrConstant;
             return Math.Round(imperialFraction, 0).ToString();
-        }
-        private static string GetYear(DateTime sourceDate)
-        {
-            //The Millenium portion of the year is tracked separately.
-            var year = sourceDate.Year.ToString();
-            return year.Substring(1);
         }
         private static string GetMillenium(DateTime sourceDate)
         {
-            var year = sourceDate.Year / 1000;
+            int year = sourceDate.Year / 1000;
             return (year + 1).ToString().PadLeft(2, '0');
         }
     }
