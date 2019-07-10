@@ -1,22 +1,29 @@
 ﻿using System;
+using System.Globalization;
 
 namespace ImperialDateConversion
 {
     public static class ImperialDate
     {
-        public static string ToImperialDate(DateTime date, CheckNumber checkNumber = 0)
+        static double makrConstant = 0.11407955;
+        public static string ToImperialDate(this DateTime date, CheckNumber checkNumber = 0)
         {
-
-            return (int) checkNumber + GetYearFraction(date) + GetYear(date) + ".M" + GetMillenium(date).ToString().PadLeft(2,'0');
+            var yearFraction = GetYearFraction(date);
+            var yearInMillenium = GetYear(date);
+            var milleniumNumber = GetMillenium(date).ToString().PadLeft(2, '0');
+            return $"{(int)checkNumber}{yearFraction}{yearInMillenium}.M{milleniumNumber}";
         }
 
         private static string GetYearFraction(DateTime sourceDate)
         {
-            DateTime yearStart = new DateTime(sourceDate.Year, 1, 1, 0, 0, 0);
-            DateTime yearEnd = new DateTime(sourceDate.Year, 12, 31, 23, 59, 59);
-            TimeSpan progress = sourceDate - yearStart;
-            var totalFraction = yearEnd.Ticks / progress.Ticks;            
-            return totalFraction.ToString().Remove(3);
+            /* 
+             * The Imperium of Man in the Warhammer 40k Universe does not use time/day/month information as we do today. 
+             * The "Imperial Date" of an event is determined by splitting a standard earth year into 1,000 equal parts.
+             */
+            var julianDate = sourceDate.DayOfYear;
+            var determinedHour = (julianDate * 24) + sourceDate.Hour;
+            var imperialFraction = determinedHour * makrConstant;
+            return Math.Round(imperialFraction, 0).ToString();
         }
 
         private static string GetYear(DateTime sourceDate)

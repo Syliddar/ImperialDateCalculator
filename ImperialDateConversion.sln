@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImperialDateConversion", "ImperialDateConversion.csproj", "{5F1AD270-A795-41EF-9C1E-F4791736F2C5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "..\Test\Test.csproj", "{85975BF2-FA46-487B-A301-BE7EB946F557}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ImperialDateConversion", "ImperialDateConversion.csproj", "{5F1AD270-A795-41EF-9C1E-F4791736F2C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
